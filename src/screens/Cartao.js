@@ -1,52 +1,83 @@
 import React from 'react';
-import {Text, View, StyleSheet, ImageBackground, Button} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 
-export default (props) => {
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
+
+Icon.loadFont();
+IconMaterial.loadFont();
+
+export default ({navigation}) => {
   return (
-    <View style={style.container}>
-      <View style={{alignItems: 'center'}}>
-        <View style={style.cabecalho}>
-          <Text style={style.textoCabecalho}>CARTÃO</Text>
+    <>
+      <View style={style.container}>
+        <View style={{alignItems: 'center'}}>
+          <View style={style.cabecalho}>
+            <Text style={style.textoCabecalho}>CARTÃO</Text>
+          </View>
         </View>
-      </View>
-      <View style={{alignItems: 'center'}}>
-        <ImageBackground
-          source={require('../images/card-front.png')}
-          style={{
-            width: 300,
-            height: 200,
-            marginTop: 50,
-          }}></ImageBackground>
-      </View>
-      <View style={style.info}>
-        <Text style={{fontSize: 15, color: '#fff'}}>NOME DO TITULAR</Text>
-        <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-          MARIA JOSÉ
-        </Text>
-      </View>
-      <View style={{alignItems: 'center'}}>
-        <View style={style.lineStyle}></View>
-      </View>
-      <View style={{flexDirection: 'row'}}>
+        <View style={{alignItems: 'center'}}>
+          <ImageBackground
+            source={require('../images/card-front.png')}
+            style={{
+              width: 300,
+              height: 200,
+              marginTop: 50,
+            }}>
+            <Text style={style.numCard}>0000 0000 0000 0000</Text>
+          </ImageBackground>
+        </View>
         <View style={style.info}>
-          <Text style={{fontSize: 15, color: '#fff'}}>
-            DATA DE{'\n'}VENCIMENTO
-          </Text>
+          <Text style={{fontSize: 15, color: '#fff'}}>NOME DO TITULAR</Text>
           <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-            12/27
+            MARIA JOSÉ
           </Text>
         </View>
-        <View
-          style={{alignItems: 'flex-start', paddingLeft: 100, paddingTop: 20}}>
-          <Text style={{fontSize: 15, color: '#fff'}}>
-            CÓD. DE{'\n'}SEGURANÇA
-          </Text>
-          <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-            12/27
-          </Text>
+        <View style={{alignItems: 'center'}}>
+          <View style={style.lineStyle}></View>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <View style={style.info}>
+            <Text style={{fontSize: 15, color: '#fff'}}>
+              DATA DE{'\n'}VENCIMENTO
+            </Text>
+            <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
+              12/27
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: 'flex-start',
+              paddingLeft: 100,
+              paddingTop: 20,
+            }}>
+            <Text style={{fontSize: 15, color: '#fff'}}>
+              CÓD. DE{'\n'}SEGURANÇA
+            </Text>
+            <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
+              12/27
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+      <View style={style.navegacao}>
+        <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
+          <Icon name="home" size={35} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('cartao')}>
+          <Icon name="credit-card" size={35} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('fatura')}>
+          <IconMaterial name="currency-eth" size={35} color="#fff" />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -55,10 +86,22 @@ const style = StyleSheet.create({
     backgroundColor: '#282B33',
     flex: 1,
   },
+  numCard: {
+    color: '#fff',
+    fontSize: 20,
+    marginTop: 70,
+    marginLeft: 10,
+  },
   info: {
     alignItems: 'flex-start',
     paddingLeft: 55,
     paddingTop: 20,
+  },
+  navegacao: {
+    backgroundColor: '#282B33',
+    justifyContent: 'space-around',
+    height: '7%',
+    flexDirection: 'row',
   },
   lineStyle: {
     borderWidth: 0.5,

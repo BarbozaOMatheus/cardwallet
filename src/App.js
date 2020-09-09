@@ -1,64 +1,52 @@
-import 'react-native-gesture-handler';
-import * as React from 'react';
+import React from 'react';
+
 import {NavigationContainer} from '@react-navigation/native';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+/* import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
 Icon.loadFont();
 IconMaterial.loadFont();
-
-import HomeScreen from './components/Dashboard';
-import Cartao from './components/Cartao';
-import Fatura from './components/Fatura';
+ */
+import Dashboard from './screens/Dashboard';
+import Cartao from './screens/Cartao';
+import Fatura from './screens/Fatura';
 import Login from './screens/Login';
 
-const Tab = createMaterialBottomTabNavigator();
-const HomeStack = createStackNavigator();
+const Stack = createStackNavigator();
 
-function MyTabs() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="home"
-        activeColor="#50AFAA"
-        inactiveColor="#9A9393"
-        barStyle={{backgroundColor: '#282B33'}}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: false,
-            tabBarIcon: ({color, size}) => (
-              <Icon name="home" color={color} size={30} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Cartao"
-          component={Cartao}
-          options={{
-            tabBarLabel: false,
-            tabBarIcon: ({color, size}) => (
-              <Icon name="credit-card" color={color} size={30} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Fatura"
-          component={Fatura}
-          options={{
-            tabBarLabel: false,
-            tabBarIcon: ({color, size}) => (
-              <IconMaterial name="currency-eth" color={color} size={30} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default MyTabs;
+export default () => (
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="fatura">
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="dashboard"
+        component={Dashboard}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="cartao"
+        component={Cartao}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="fatura"
+        component={Fatura}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+);

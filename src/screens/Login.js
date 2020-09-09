@@ -1,15 +1,29 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  TextInput,
+  KeyboardAvoidingView,
+} from 'react-native';
 
-export default function Login() {
+const Login = ({navigation}) => {
   return (
-    <View style={{flex: 1}}>
-      <Image
-        style={{flex: 1, width: null, height: null, resizeMode: 'cover'}}
-        source={require('../images/fundo.jpg')}></Image>
+    <KeyboardAvoidingView style={{backgroundColor: '#eee'}}>
       <View>
-        <Text>teste</Text>
+        <Text>CARD WALLET</Text>
       </View>
-    </View>
+
+      <View>
+        <TextInput placeholder="E-mail" />
+        <TextInput placeholder="Senha" secureTextEntry={true} />
+        <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+          <Text>Entrardassssssssasdasdasda</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
-}
+};
+
+export default Login;
