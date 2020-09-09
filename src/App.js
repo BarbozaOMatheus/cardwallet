@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,20 +10,19 @@ import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 IconMaterial.loadFont();
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-
 import HomeScreen from './components/Dashboard';
 import Cartao from './components/Cartao';
 import Fatura from './components/Fatura';
+import Login from './screens/Login';
 
 const Tab = createMaterialBottomTabNavigator();
+const HomeStack = createStackNavigator();
 
 function MyTabs() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="home"
         activeColor="#50AFAA"
         inactiveColor="#9A9393"
         barStyle={{backgroundColor: '#282B33'}}>
