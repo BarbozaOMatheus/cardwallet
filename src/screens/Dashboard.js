@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
+  Alert,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,12 +16,33 @@ Icon.loadFont();
 IconMaterial.loadFont();
 
 export default ({navigation}) => {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Sair do App', 'Tem certeza que deseja sair?', [
+        {
+          text: 'Cancelar',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'Sim', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <>
-      <View style={style.root}>
+      <View style={styles.root}>
         <View style={{alignItems: 'center'}}>
-          <View style={style.nomeUsuario}>
-            <Text style={style.texto}>MARIA JOSÉ</Text>
+          <View style={styles.nomeUsuario}>
+            <Text style={styles.texto}>MARIA JOSÉ</Text>
           </View>
         </View>
         <View
@@ -30,7 +53,7 @@ export default ({navigation}) => {
           style={{marginTop: 15, alignItems: 'flex-start', paddingLeft: 25}}>
           <Text style={{fontSize: 30, color: '#F103AE'}}>R$ 0,00</Text>
         </View>
-        <View style={style.despesas}>
+        <View style={styles.despesas}>
           <View style={{flexDirection: 'column'}}>
             <View>
               <Text style={{fontSize: 17, color: '#fff'}}>DESCRIÇÃO</Text>
@@ -43,7 +66,7 @@ export default ({navigation}) => {
             <Text style={{fontSize: 25, color: '#9A9393'}}>R$ 0,00</Text>
           </View>
         </View>
-        <View style={style.despesas}>
+        <View style={styles.despesas}>
           <View style={{flexDirection: 'column'}}>
             <View>
               <Text style={{fontSize: 17, color: '#fff'}}>DESCRIÇÃO</Text>
@@ -56,7 +79,7 @@ export default ({navigation}) => {
             <Text style={{fontSize: 25, color: '#9A9393'}}>R$ 0,00</Text>
           </View>
         </View>
-        <View style={style.despesas}>
+        <View style={styles.despesas}>
           <View style={{flexDirection: 'column'}}>
             <View>
               <Text style={{fontSize: 17, color: '#fff'}}>DESCRIÇÃO</Text>
@@ -69,7 +92,7 @@ export default ({navigation}) => {
             <Text style={{fontSize: 25, color: '#9A9393'}}>R$ 0,00</Text>
           </View>
         </View>
-        <View style={style.despesas}>
+        <View style={styles.despesas}>
           <View style={{flexDirection: 'column'}}>
             <View>
               <Text style={{fontSize: 17, color: '#fff'}}>DESCRIÇÃO</Text>
@@ -83,7 +106,7 @@ export default ({navigation}) => {
           </View>
         </View>
       </View>
-      <View style={style.navegacao}>
+      <View style={styles.navegacao}>
         <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
           <Icon name="home" size={35} color="#fff" />
         </TouchableOpacity>
@@ -97,7 +120,8 @@ export default ({navigation}) => {
     </>
   );
 };
-const style = StyleSheet.create({
+
+const styles = StyleSheet.create({
   root: {
     backgroundColor: '#282B33',
     flex: 1,

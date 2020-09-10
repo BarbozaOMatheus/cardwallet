@@ -13,14 +13,15 @@ import Dashboard from './screens/Dashboard';
 import Cartao from './screens/Cartao';
 import Fatura from './screens/Fatura';
 import Login from './screens/Login';
+import Singup from './screens/Singup';
 
 const Stack = createStackNavigator();
 
 export default () => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="fatura">
+    <Stack.Navigator initialRouteName="login">
       <Stack.Screen
-        name="Login"
+        name="login"
         component={Login}
         options={{
           headerShown: false,
@@ -43,6 +44,13 @@ export default () => (
       <Stack.Screen
         name="fatura"
         component={Fatura}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="singup"
+        component={Singup}
         options={{
           headerShown: false,
         }}
