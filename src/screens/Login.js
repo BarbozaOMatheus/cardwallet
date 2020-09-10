@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -12,6 +12,9 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Login = ({navigation}) => {
+  const [email, setEmail] = useState(true);
+  const [password, setPassword] = useState(true);
+
   return (
     <ImageBackground
       source={require('../images/fundo.jpg')}
@@ -23,6 +26,7 @@ const Login = ({navigation}) => {
             style={styles.txtLogin}
             placeholder="E-mail"
             placeholderTextColor="#fff"
+            keyboardType="email-address"
           />
         </View>
         <View style={styles.boxEmail}>
@@ -31,6 +35,7 @@ const Login = ({navigation}) => {
             style={styles.txtLogin}
             placeholder="Senha"
             placeholderTextColor="#fff"
+            secureTextEntry={true}
           />
         </View>
         <View style={styles.btnLogin}>

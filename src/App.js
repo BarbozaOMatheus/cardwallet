@@ -15,46 +15,53 @@ import Fatura from './screens/Fatura';
 import Login from './screens/Login';
 import Singup from './screens/Singup';
 
+import {Provider, connect} from 'react-redux';
+import store from './config/store';
+
 const Stack = createStackNavigator();
 
-export default () => (
-  <NavigationContainer>
-    <Stack.Navigator initialRouteName="login">
-      <Stack.Screen
-        name="login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="dashboard"
-        component={Dashboard}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="cartao"
-        component={Cartao}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="fatura"
-        component={Fatura}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="singup"
-        component={Singup}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  </NavigationContainer>
+const App = () => (
+  <Provider store={store}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="login">
+        <Stack.Screen
+          name="login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="dashboard"
+          component={Dashboard}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="cartao"
+          component={Cartao}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="fatura"
+          component={Fatura}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="singup"
+          component={Singup}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  </Provider>
 );
+
+export default App;
