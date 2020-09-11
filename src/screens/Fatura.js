@@ -13,7 +13,7 @@ export default ({navigation}) => {
       <View style={style.container}>
         <View style={{alignItems: 'center'}}>
           <View style={style.cabecalho}>
-            <Text style={style.textoCabecalho}>CARTÃO</Text>
+            <Text style={style.textoCabecalho}>FATURA</Text>
           </View>
         </View>
         <View style={style.faturas}>
@@ -40,6 +40,19 @@ export default ({navigation}) => {
               <Text style={style.textoCabecalho}>JAN</Text>
               <Text style={style.textoCabecalho}>R$ 0,00</Text>
             </View>
+          </View>
+        </View>
+        <View
+          style={{
+            alignItems: 'center',
+            backgroundColor: '#282B33',
+            marginTop: 100,
+          }}>
+          <View style={style.btnCadastro}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('cadastroFatura')}>
+              <Text style={style.txtbtnCadastro}>CADASTRAR FATURA</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -114,5 +127,16 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
+  },
+  btnCadastro: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#50AFAA',
+    borderRadius: 30,
+    width: 150,
+    height: 50,
+  },
+  txtbtnCadastro: {
+    color: '#fff',
   },
 });

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, Component} from 'react';
 import {
   Text,
   View,
@@ -9,47 +9,67 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import {login} from '../actions/auth.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Login = ({navigation}) => {
-  const [email, setEmail] = useState(true);
-  const [password, setPassword] = useState(true);
+class Login extends Component {
+  state = {
+    email: '',
+    senha: '',
+  };
 
-  return (
-    <ImageBackground
-      source={require('../images/fundo.jpg')}
-      style={styles.imageBackground}>
-      <View style={styles.login}>
-        <View style={styles.boxEmail}>
-          <Icon name="at" size={35} color="#fff" />
-          <TextInput
-            style={styles.txtLogin}
-            placeholder="E-mail"
-            placeholderTextColor="#fff"
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={styles.boxEmail}>
-          <Icon name="lock" size={35} color="#fff" />
-          <TextInput
-            style={styles.txtLogin}
-            placeholder="Senha"
-            placeholderTextColor="#fff"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={styles.btnLogin}>
-          <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
-            <Text style={styles.txtbtnLogin}>ENTRAR</Text>
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.userLogged && this.props.userLogged) {
+      this.props.navigation.navigate('dashboard');
+    }
+  }
+
+  salvar = () => {
+    this.props.onLogin({...this.state});
+  };
+  render() {
+    return (
+      <ImageBackground
+        source={require('../images/fundo.jpg')}
+        style={styles.imageBackground}>
+        <View style={styles.login}>
+          <View style={styles.boxEmail}>
+            <Icon name="at" size={35} color="#fff" />
+            <TextInput
+              style={styles.txtLogin}
+              placeholder="E-mail"
+              placeholderTextColor="#fff"
+              keyboardType="email-address"
+              onChangeText={(text) => this.setState({email: text})}
+              value={this.state.email}
+            />
+          </View>
+          <View style={styles.boxEmail}>
+            <Icon name="lock" size={35} color="#fff" />
+            <TextInput
+              style={styles.txtLogin}
+              placeholder="Senha"
+              placeholderTextColor="#fff"
+              secureTextEntry={true}
+              onChangeText={(text) => this.setState({senha: text})}
+              value={this.state.senha}
+            />
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => this.salvar()}>
+              <Text style={styles.txtbtnLogin}>ENTRAR</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('singup')}>
+            <Text style={styles.txtCadastro}>CADASTRAR-SE</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('singup')}>
-          <Text style={styles.txtCadastro}>CADASTRAR-SE</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-  );
-};
+      </ImageBackground>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -103,4 +123,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: (user) => dispatch(login(user)),
+  };
+};
+
+const mapStateToProps = ({authReducer}) => {
+  return {userLogged: authReducer.userLogged};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

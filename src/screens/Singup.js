@@ -1,64 +1,131 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 
-export default ({navigation}) => {
-  const [nome, setNome] = React.useState('');
+import TextInputMask from 'react-native-text-input-mask';
 
-  return (
-    <>
-      <View style={styles.container}>
-        <View style={{alignItems: 'center'}}>
-          <View style={styles.cabecalho}>
-            <Text style={styles.textoCabecalho}>CADASTRO</Text>
+class Singup extends Component {
+  state = {
+    nome: '',
+    telefone: '',
+    email: '',
+    cpf: '',
+    senha: '',
+  };
+  render() {
+    return (
+      <>
+        <ScrollView style={styles.container}>
+          <View style={{alignItems: 'center'}}>
+            <View style={styles.cabecalho}>
+              <Text style={styles.textoCabecalho}>CADASTRO</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.questions}>
-          <View style={styles.boxQuestion}>
-            <TextInput
-              style={styles.input}
-              placeholder="Qual o seu nome?"
-              onChangeText={(nome) => setNome(nome)}
-              placeholderTextColor="#fff"
-            />
+          <View style={styles.questions}>
+            <View style={styles.boxQuestion}>
+              <Text style={styles.txtQuestion}>QUAL O SEU NOME?</Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#fff"
+                underlineColorAndroid="#fff"
+                onChangeText={(text) => this.setState({nome: text})}
+                value={this.state.nome}
+              />
+            </View>
+            <View style={styles.boxQuestion}>
+              <Text style={styles.txtQuestion}>QUAL O SEU TELEFONE?</Text>
+              <TextInputMask
+                style={styles.input}
+                placeholderTextColor="#fff"
+                underlineColorAndroid="#fff"
+                keyboardType="numeric"
+                mask={'[00] [00000]-[0000]'}
+                onChangeText={(text) => this.setState({telefone: text})}
+                value={this.state.telefone}
+              />
+            </View>
+            <View style={styles.boxQuestion}>
+              <Text style={styles.txtQuestion}>QUAL O SEU E-MAIL?</Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#fff"
+                underlineColorAndroid="#fff"
+                onChangeText={(text) => this.setState({email: text})}
+                value={this.state.email}
+              />
+            </View>
+            <View style={styles.boxQuestion}>
+              <Text style={styles.txtQuestion}>QUAL O SEU CPF?</Text>
+              <TextInputMask
+                style={styles.input}
+                placeholderTextColor="#fff"
+                underlineColorAndroid="#fff"
+                keyboardType="numeric"
+                mask={'[000].[000].[000]-[00]'}
+                onChangeText={(text) => this.setState({cpf: text})}
+                value={this.state.cpf}
+              />
+            </View>
+            <View style={styles.boxQuestion}>
+              <Text style={styles.txtQuestion}>CRIE UMA SENHA DE ACESSO</Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#fff"
+                underlineColorAndroid="#fff"
+                onChangeText={(text) => this.setState({senha: text})}
+                value={this.state.senha}
+              />
+            </View>
           </View>
-        </View>
-      </View>
-    </>
-  );
-};
+          <View style={{alignItems: 'center', marginTop: 30}}>
+            <View style={styles.btnCadastro}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('login')}>
+                <Text style={styles.txtbtnCadastro}>CADASTRAR</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#282B33',
     flex: 1,
   },
+  txtbtnCadastro: {
+    color: '#fff',
+  },
   questions: {
-    paddingTop: 50,
+    paddingTop: 30,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   boxQuestion: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 43,
   },
   txtQuestion: {
     color: '#fff',
     fontSize: 20,
   },
   input: {
-    backgroundColor: '#9A9393',
-    borderRadius: 30,
-    width: 200,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 300,
+    textAlign: 'center',
+    fontSize: 15,
+    color: '#fff',
   },
   cabecalho: {
     backgroundColor: '#50AFAA',
@@ -83,4 +150,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Roboto',
   },
+  btnCadastro: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#50AFAA',
+    borderRadius: 30,
+    width: 150,
+    height: 50,
+  },
 });
+
+export default Singup;

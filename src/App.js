@@ -14,8 +14,10 @@ import Cartao from './screens/Cartao';
 import Fatura from './screens/Fatura';
 import Login from './screens/Login';
 import Singup from './screens/Singup';
+import CadastroCard from './screens/CadastroCard';
+import CadastroFatura from './screens/CadastroFatura';
 
-import {Provider, connect} from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './config/store';
 
 const Stack = createStackNavigator();
@@ -55,6 +57,20 @@ const App = () => (
         <Stack.Screen
           name="singup"
           component={Singup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="cadastroCard"
+          component={CadastroCard}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="cadastroFatura"
+          component={CadastroFatura}
           options={{
             headerShown: false,
           }}

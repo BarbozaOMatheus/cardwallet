@@ -65,6 +65,19 @@ export default ({navigation}) => {
             </Text>
           </View>
         </View>
+        <View
+          style={{
+            alignItems: 'center',
+            backgroundColor: '#282B33',
+            marginTop: 100,
+          }}>
+          <View style={style.btnCadastro}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('cadastroCard')}>
+              <Text style={style.txtbtnCadastro}>EDITAR CARTÃO</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
       <View style={style.navegacao}>
         <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
@@ -133,5 +146,16 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
+  },
+  btnCadastro: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#50AFAA',
+    borderRadius: 30,
+    width: 150,
+    height: 50,
+  },
+  txtbtnCadastro: {
+    color: '#fff',
   },
 });
