@@ -4,6 +4,7 @@ const initialState = {
   email: 'teste@teste',
   senha: '1234',
   userLogged: false,
+  name: 'Usuário Teste'
 };
 
 export default (state = initialState, action) => {

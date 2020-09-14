@@ -10,23 +10,20 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import {login} from '../actions/auth.js';
+import { login } from '../store/actions/user'
+//import {login} from '../actions/auth.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Login extends Component {
   state = {
+    name: '',
     email: '',
     senha: '',
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevProps.userLogged && this.props.userLogged) {
-      this.props.navigation.navigate('dashboard');
-    }
-  }
-
-  salvar = () => {
-    this.props.onLogin({...this.state});
+  login = () => {
+    this.props.onLogin({...this.state})
+    this.props.navigation.navigate('dashboard')
   };
   render() {
     return (
@@ -57,7 +54,7 @@ class Login extends Component {
             />
           </View>
           <View style={styles.btnLogin}>
-            <TouchableOpacity onPress={() => this.salvar()}>
+            <TouchableOpacity onPress={() => this.login()}>
               <Text style={styles.txtbtnLogin}>ENTRAR</Text>
             </TouchableOpacity>
           </View>
@@ -123,14 +120,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch) => {
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onLogin: (user) => dispatch(login(user)),
+//   };
+// };
+
+// const mapStateToProps = ({authReducer}) => {
+//   return {userLogged: authReducer.userLogged};
+// };
+
+const mapDispatchToProps = dispatch => {
   return {
-    onLogin: (user) => dispatch(login(user)),
-  };
-};
+    onLogin: user => dispatch(login(user))
+  }
+}
 
-const mapStateToProps = ({authReducer}) => {
-  return {userLogged: authReducer.userLogged};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login)

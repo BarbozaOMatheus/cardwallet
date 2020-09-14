@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
@@ -13,7 +13,8 @@ import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 IconMaterial.loadFont();
 
-export default ({navigation}) => {
+class Cartao extends Component {
+  render(){
   return (
     <>
       <View style={style.container}>
@@ -80,18 +81,22 @@ export default ({navigation}) => {
         </View>
       </View>
       <View style={style.navegacao}>
-        <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('dashboard')}>
           <Icon name="home" size={35} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('cartao')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('cartao')}>
           <Icon name="credit-card" size={35} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('fatura')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('fatura')}>
           <IconMaterial name="currency-eth" size={35} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('profile')}>
+          <Icon name="id-badge" size={35} color="#fff" />
         </TouchableOpacity>
       </View>
     </>
   );
+  }
 };
 
 const style = StyleSheet.create({
@@ -159,3 +164,5 @@ const style = StyleSheet.create({
     color: '#fff',
   },
 });
+
+export default Cartao;

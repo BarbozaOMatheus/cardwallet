@@ -4,57 +4,30 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {connect} from 'react-redux';
+
 Icon.loadFont();
 IconMaterial.loadFont();
 
-class Fatura extends Component{
+class Profile extends Component{
   render(){
+    const nome = this.props.nome || 'Usuário'
   return (
     <>
       <View style={style.container}>
         <View style={{alignItems: 'center'}}>
           <View style={style.cabecalho}>
-            <Text style={style.textoCabecalho}>FATURA</Text>
+            <Text style={style.textoCabecalho}>{nome}</Text>
           </View>
-        </View>
-        <View style={style.faturas}>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
+          <View style={style.cabecalho}>
+            <Text style={style.textoCabecalho}>{this.props.email}</Text>
           </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-        </View>
-        <View
-          style={{
-            alignItems: 'center',
-            backgroundColor: '#282B33',
-            marginTop: 100,
-          }}>
-          <View style={style.btnCadastro}>
+        <View style={style.btnCadastro}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('cadastroFatura')}>
-              <Text style={style.txtbtnCadastro}>CADASTRAR FATURA</Text>
+              onPress={() => this.props.navigation.navigate('login')}>
+              <Text style={style.txtbtnCadastro}>SAIR</Text>
             </TouchableOpacity>
-          </View>
+        </View>
         </View>
       </View>
       <View style={style.navegacao}>
@@ -80,6 +53,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: '#282B33',
     flex: 1,
+    justifyContent: 'center'
   },
   txtFatura: {
     flexDirection: 'row',
@@ -138,6 +112,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#50AFAA',
     borderRadius: 30,
+    marginTop: 50,
     width: 150,
     height: 50,
   },
@@ -146,4 +121,11 @@ const style = StyleSheet.create({
   },
 });
 
-export default Fatura;
+const mapStateToProps = ({user}) => {
+    return {
+      nome: user.nome,
+      email: user.email
+    };
+  };
+
+export default connect(mapStateToProps)(Profile);

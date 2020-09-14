@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Component} from 'react';
 import {
   Text,
   View,
@@ -9,40 +9,30 @@ import {
   Alert,
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import { logout } from '../store/actions/user'
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
 Icon.loadFont();
 IconMaterial.loadFont();
 
-export default ({navigation}) => {
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Sair do App', 'Tem certeza que deseja sair?', [
-        {
-          text: 'Cancelar',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'Sim', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
+class Dashboard extends Component{
+  logout = () => {
+    this.props.onLogout()
+    this.props.navigation.navigate('login')
+  }
+  
+  render() {
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
-
+    const nome = this.props.nome || 'Usuário'
   return (
     <>
       <View style={styles.root}>
         <View style={{alignItems: 'center'}}>
           <View style={styles.nomeUsuario}>
-            <Text style={styles.texto}>MARIA JOSÉ</Text>
+            <Text style={styles.texto}>{nome}</Text>
           </View>
         </View>
         <View
@@ -107,20 +97,23 @@ export default ({navigation}) => {
         </View>
       </View>
       <View style={styles.navegacao}>
-        <TouchableOpacity onPress={() => navigation.navigate('dashboard')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('dashboard')}>
           <Icon name="home" size={35} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('cartao')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('cartao')}>
           <Icon name="credit-card" size={35} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('fatura')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('fatura')}>
           <IconMaterial name="currency-eth" size={35} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('profile')}>
+          <Icon name="id-badge" size={35} color="#fff" />
         </TouchableOpacity>
       </View>
     </>
   );
 };
-
+}
 const styles = StyleSheet.create({
   root: {
     backgroundColor: '#282B33',
@@ -155,3 +148,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
   },
 });
+
+const mapStateToProps = ({user}) => {
+  return {
+    nome: user.nome  
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+//export default Dashboard;

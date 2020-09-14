@@ -16,14 +16,16 @@ import Login from './screens/Login';
 import Singup from './screens/Singup';
 import CadastroCard from './screens/CadastroCard';
 import CadastroFatura from './screens/CadastroFatura';
+import Profile from './screens/Profile';
 
 import {Provider} from 'react-redux';
-import store from './config/store';
+//import store from './config/store';
+//import store from './store/storeConfig';
 
 const Stack = createStackNavigator();
 
 const App = () => (
-  <Provider store={store}>
+  //<Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen
@@ -75,9 +77,16 @@ const App = () => (
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-  </Provider>
+  //</Provider>
 );
 
 export default App;
