@@ -25,26 +25,7 @@ class Singup extends Component {
           cpf: '12345678',
           senha: '1231231',
       },
-  ]
-  }
-
-  salvar = async () => {
-    this.props.onAddUser({
-      id: Math.random(),
-      nome: this.props.nome,
-      telefone: this.props.telefone,
-      email: this.props.email,
-      cpf: this.props.cpf,
-      senha: this.props.senha
-    })
-
-    this.setState({
-      nome: '',
-      telefone: '',
-      email: '',
-      cpf: '',
-      senha: ''
-    })
+    ]
   }
 
   render() {
@@ -115,7 +96,7 @@ class Singup extends Component {
           <View style={{alignItems: 'center', marginTop: 30}}>
             <View style={styles.btnCadastro}>
               <TouchableOpacity
-                onPress={() => this.salvar()}>
+                onPress={() => this.props.navigation.navigate('login')}>
                 <Text style={styles.txtbtnCadastro}>CADASTRAR</Text>
               </TouchableOpacity>
             </View>
@@ -190,20 +171,20 @@ const styles = StyleSheet.create({
 
 //export default Singup;
 
-const mapStateToProps = ({ user }) => {
-  return {
-    nome: user.nome,
-    telefone: user.telefone,
-    email: user.email,
-    cpf: user.cpf,
-    senha: user.senha
-  }
-}
+// const mapStateToProps = ({ user }) => {
+//   return {
+//     nome: user.nome,
+//     telefone: user.telefone,
+//     email: user.email,
+//     cpf: user.cpf,
+//     senha: user.senha
+//   }
+// }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddUser: user => dispatch(addUser(user))
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     onAddUser: user => dispatch(addUser(user))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Singup);
+export default Singup;
