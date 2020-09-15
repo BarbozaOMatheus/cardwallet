@@ -6,22 +6,45 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Alert,
 } from 'react-native';
+
+import {connect} from 'react-redux'
+import {addUser} from '../store/actions/AddUser' 
 
 import TextInputMask from 'react-native-text-input-mask';
 
 class Singup extends Component {
-  state = {
-    nome: '',
-    telefone: '',
-    email: '',
-    cpf: '',
-    senha: '',
-  };
 
-  salvar = () => {
-    this.props.navigation.navigate('login')
+  state= {
+    user: [
+      {
+          id: '001',
+          nome: 'usuário',
+          telefone: '1234',
+          email: 'teste@teste',
+          cpf: '12345678',
+          senha: '1231231',
+      },
+  ]
+  }
+
+  salvar = async () => {
+    this.props.onAddUser({
+      id: Math.random(),
+      nome: this.props.nome,
+      telefone: this.props.telefone,
+      email: this.props.email,
+      cpf: this.props.cpf,
+      senha: this.props.senha
+    })
+
+    this.setState({
+      nome: '',
+      telefone: '',
+      email: '',
+      cpf: '',
+      senha: ''
+    })
   }
 
   render() {
@@ -165,4 +188,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Singup;
+//export default Singup;
+
+const mapStateToProps = ({ user }) => {
+  return {
+    nome: user.nome,
+    telefone: user.telefone,
+    email: user.email,
+    cpf: user.cpf,
+    senha: user.senha
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddUser: user => dispatch(addUser(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Singup);
