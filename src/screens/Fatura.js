@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,6 +8,36 @@ Icon.loadFont();
 IconMaterial.loadFont();
 
 class Fatura extends Component{
+  state = {
+    faturas: [
+      {
+        id: '001',
+        data: '12/08/2020',
+        valor: 150,
+        paga: true,
+      },
+      {
+        id: '002',
+        data: '12/09/2020',
+        valor: 250,
+        paga: true,
+      },
+      {
+        id: '003',
+        data: '12/10/2020',
+        valor: 200,
+        paga: true,
+        cartao: '1111 1111 1111 1111'
+      },
+      {
+        id: '004',
+        data: '12/11/2020',
+        valor: 350,
+        paga: false,
+      },
+    ]
+  }
+  
   render(){
   return (
     <>
@@ -17,41 +47,26 @@ class Fatura extends Component{
             <Text style={style.textoCabecalho}>FATURA</Text>
           </View>
         </View>
-        <View style={style.faturas}>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
+        <FlatList
+          data={this.state.faturas}
+          keyExtractor={item => `${item.id}`}
+          renderItem={({ item }) => 
+            <View 
+            style={style.list}
+            key={item.id}>
+              <Text style={style.txtDescFatura}>DATA: {item.data}</Text>
+              <Text style={style.txtDescFatura}>VALOR: R$ {item.valor}</Text>
             </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={style.txtFatura}>
-              <Text style={style.textoCabecalho}>JAN</Text>
-              <Text style={style.textoCabecalho}>R$ 0,00</Text>
-            </View>
-          </View>
-        </View>
+          } />
         <View
           style={{
             alignItems: 'center',
             backgroundColor: '#282B33',
-            marginTop: 100,
+            marginBottom: 20
           }}>
           <View style={style.btnCadastro}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('cadastroFatura')}>
+              onPress={() => this.props.navigation.navigate('cadastroFatura')}>
               <Text style={style.txtbtnCadastro}>CADASTRAR FATURA</Text>
             </TouchableOpacity>
           </View>
@@ -80,6 +95,16 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: '#282B33',
     flex: 1,
+  },
+  list: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    marginTop: 50,
+  },
+  txtDescFatura: {
+    fontSize: 17,
+    color: '#fff',
   },
   txtFatura: {
     flexDirection: 'row',

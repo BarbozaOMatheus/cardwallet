@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -10,9 +10,16 @@ import {
 
 import TextInputMask from 'react-native-text-input-mask';
 
-export default ({navigation}) => {
-  const [nome, setNome] = React.useState('');
+class CadastroCard extends Component{
+  
+  state={
+    numCard: '',
+    nomeCard: '',
+    data: '',
+    cod: ''
+  }
 
+  render() {
   return (
     <>
       <ScrollView style={styles.container}>
@@ -26,7 +33,8 @@ export default ({navigation}) => {
             <Text style={styles.txtQuestion}>NÚMERO DO CARTÃO</Text>
             <TextInputMask
               style={styles.input}
-              onChangeText={(nome) => setNome(nome)}
+              onChangeText={(text) => this.setState({numCard: text})}
+              value={this.state.numCard}
               placeholderTextColor="#fff"
               underlineColorAndroid="#fff"
               keyboardType="numeric"
@@ -37,7 +45,8 @@ export default ({navigation}) => {
             <Text style={styles.txtQuestion}>NOME NO CARTÃO</Text>
             <TextInput
               style={styles.input}
-              onChangeText={(nome) => setNome(nome)}
+              onChangeText={(text) => this.setState({nomeCard: text})}
+              value={this.state.nomeCard}
               placeholderTextColor="#fff"
               underlineColorAndroid="#fff"
             />
@@ -47,7 +56,8 @@ export default ({navigation}) => {
               <Text style={styles.txtQuestion}>DATA DE{'\n'}VENCIMENTO</Text>
               <TextInputMask
                 style={styles.inputBaixo}
-                onChangeText={(nome) => setNome(nome)}
+                onChangeText={(text) => this.setState({data: text})}
+                value={this.state.data}
                 placeholderTextColor="#fff"
                 underlineColorAndroid="#fff"
                 keyboardType="numeric"
@@ -58,7 +68,8 @@ export default ({navigation}) => {
               <Text style={styles.txtQuestion}>CÓD. DE{'\n'}SEGURANÇA</Text>
               <TextInputMask
                 style={styles.inputBaixo}
-                onChangeText={(nome) => setNome(nome)}
+                onChangeText={(text) => this.setState({cod: text})}
+                value={this.state.cod}
                 placeholderTextColor="#fff"
                 underlineColorAndroid="#fff"
                 keyboardType="numeric"
@@ -73,7 +84,7 @@ export default ({navigation}) => {
             marginTop: 100,
           }}>
           <View style={styles.btnCadastro}>
-            <TouchableOpacity onPress={() => navigation.navigate('cartao')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('cartao')}>
               <Text style={styles.txtbtnCadastro}>CADASTRAR</Text>
             </TouchableOpacity>
           </View>
@@ -81,6 +92,7 @@ export default ({navigation}) => {
       </ScrollView>
     </>
   );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -156,3 +168,5 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
+
+export default CadastroCard;

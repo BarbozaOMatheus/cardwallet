@@ -120,16 +120,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onLogin: (user) => dispatch(login(user)),
-//   };
-// };
-
-// const mapStateToProps = ({authReducer}) => {
-//   return {userLogged: authReducer.userLogged};
-// };
-
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: user => dispatch(login(user))

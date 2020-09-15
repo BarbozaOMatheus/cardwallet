@@ -5,8 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 import TextInputMask from 'react-native-text-input-mask';
@@ -19,6 +19,11 @@ class Singup extends Component {
     cpf: '',
     senha: '',
   };
+
+  salvar = () => {
+    this.props.navigation.navigate('login')
+  }
+
   render() {
     return (
       <>
@@ -87,7 +92,7 @@ class Singup extends Component {
           <View style={{alignItems: 'center', marginTop: 30}}>
             <View style={styles.btnCadastro}>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('login')}>
+                onPress={() => this.salvar()}>
                 <Text style={styles.txtbtnCadastro}>CADASTRAR</Text>
               </TouchableOpacity>
             </View>

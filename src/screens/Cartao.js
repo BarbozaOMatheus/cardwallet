@@ -14,7 +14,14 @@ Icon.loadFont();
 IconMaterial.loadFont();
 
 class Cartao extends Component {
+  state= {
+    numCartao: '1234 5678 7890 4321',
+    data: '12/12/2020',
+    cod: '123'
+  }
+  
   render(){
+    const nome = this.props.nome || 'Usuário'
   return (
     <>
       <View style={style.container}>
@@ -31,13 +38,13 @@ class Cartao extends Component {
               height: 200,
               marginTop: 50,
             }}>
-            <Text style={style.numCard}>0000 0000 0000 0000</Text>
+            <Text style={style.numCard}>{this.state.numCartao}</Text>
           </ImageBackground>
         </View>
         <View style={style.info}>
           <Text style={{fontSize: 15, color: '#fff'}}>NOME DO TITULAR</Text>
           <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-            MARIA JOSÉ
+            {nome}
           </Text>
         </View>
         <View style={{alignItems: 'center'}}>
@@ -49,7 +56,7 @@ class Cartao extends Component {
               DATA DE{'\n'}VENCIMENTO
             </Text>
             <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-              12/27
+              {this.state.data}
             </Text>
           </View>
           <View
@@ -62,7 +69,7 @@ class Cartao extends Component {
               CÓD. DE{'\n'}SEGURANÇA
             </Text>
             <Text style={{fontSize: 20, color: '#F103AE', paddingTop: 10}}>
-              12/27
+              {this.state.cod}
             </Text>
           </View>
         </View>
@@ -74,7 +81,7 @@ class Cartao extends Component {
           }}>
           <View style={style.btnCadastro}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('cadastroCard')}>
+              onPress={() => this.props.navigation.navigate('cadastroCard')}>
               <Text style={style.txtbtnCadastro}>EDITAR CARTÃO</Text>
             </TouchableOpacity>
           </View>

@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
   ScrollView,
 } from 'react-native';
 
 import TextInputMask from 'react-native-text-input-mask';
 
-export default ({navigation}) => {
-  const [nome, setNome] = React.useState('');
+class CadastroFatura extends Component{
 
+  state={
+    numCard: '',
+    data: '',
+    valor: null
+  }
+
+render(){
   return (
     <>
       <ScrollView style={styles.container}>
@@ -26,7 +31,8 @@ export default ({navigation}) => {
             <Text style={styles.txtQuestion}>NÚMERO DO CARTÃO</Text>
             <TextInputMask
               style={styles.input}
-              onChangeText={(nome) => setNome(nome)}
+              onChangeText={(text) => this.setState({numCard: text})}
+              value={this.state.numCard}
               placeholderTextColor="#fff"
               underlineColorAndroid="#fff"
               keyboardType="numeric"
@@ -38,7 +44,8 @@ export default ({navigation}) => {
               <Text style={styles.txtQuestion}>DATA</Text>
               <TextInputMask
                 style={styles.inputBaixo}
-                onChangeText={(nome) => setNome(nome)}
+                onChangeText={(text) => this.setState({data: text})}
+                value={this.state.data}
                 placeholderTextColor="#fff"
                 underlineColorAndroid="#fff"
                 keyboardType="numeric"
@@ -49,7 +56,8 @@ export default ({navigation}) => {
               <Text style={styles.txtQuestion}>VALOR</Text>
               <TextInputMask
                 style={styles.inputBaixo}
-                onChangeText={(nome) => setNome(nome)}
+                onChangeText={(text) => this.setState({valor: text})}
+                value={this.state.valor}
                 placeholderTextColor="#fff"
                 underlineColorAndroid="#fff"
                 keyboardType="numeric"
@@ -64,7 +72,7 @@ export default ({navigation}) => {
             marginTop: 200,
           }}>
           <View style={styles.btnCadastro}>
-            <TouchableOpacity onPress={() => navigation.navigate('fatura')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('fatura')}>
               <Text style={styles.txtbtnCadastro}>CADASTRAR</Text>
             </TouchableOpacity>
           </View>
@@ -72,6 +80,7 @@ export default ({navigation}) => {
       </ScrollView>
     </>
   );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -147,3 +156,5 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
+
+export default CadastroFatura;
